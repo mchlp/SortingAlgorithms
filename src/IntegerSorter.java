@@ -2,7 +2,7 @@ import java.util.Arrays;
 
 public class IntegerSorter implements Sorter {
 
-    public static final long KILL_TIME = 1_000_000_000L * 60L;
+    public static final long KILL_TIME = 1_000_000_000L * 60L * 10L;
     public static final long CHECK_INTERVAL_COUNT = 10_000_000_000L;
 
     private int[] list;
@@ -17,6 +17,7 @@ public class IntegerSorter implements Sorter {
                 if (itercount > CHECK_INTERVAL_COUNT) {
                     itercount=0;
                     if (System.nanoTime() - startTime > KILL_TIME) {
+                        System.out.println("Killed.");
                         return list;
                     }
                 }
@@ -39,6 +40,7 @@ public class IntegerSorter implements Sorter {
                 if (itercount > CHECK_INTERVAL_COUNT) {
                     itercount=0;
                     if (System.nanoTime() - startTime > KILL_TIME) {
+                        System.out.println("Killed.");
                         return list;
                     }
                 }
