@@ -1,3 +1,10 @@
+/*
+ *  Author: Michael Pu
+ *  Teacher: Mr. Radulovic
+ *  Date: 2019/3/29
+ *  Course: ICS4U
+ */
+
 import java.util.Random;
 
 public class SortTester {

@@ -1,4 +1,11 @@
 
+/*
+ *  Author: Michael Pu
+ *  Teacher: Mr. Radulovic
+ *  Date: 2019/3/29
+ *  Course: ICS4U
+ */
+
 public interface Sorter {
     /**
      * This method sets the current list that is used in this class.  The original list should never be changed.
