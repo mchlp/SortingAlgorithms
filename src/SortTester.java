@@ -26,27 +26,28 @@ public class SortTester {
         IntegerSorter integerSorter = new IntegerSorter();
         Random random = new Random();
 
+        long resultTimes[][][] = new long[NUM_SORT_METHODS][ARRAY_SIZES.length][NUM_TRIALS];
+
         // loops through all the array sizes
-        for (int arraySize : ARRAY_SIZES) {
+        for (int i = 0; i < ARRAY_SIZES.length; i++) {
+            int arraySize = ARRAY_SIZES[i];
+
             System.out.println("===== SIZE " + arraySize + " =====");
 
             // generates array and fills it with "arraySize" number of random integers
             int arr[] = new int[arraySize];
-            for (int i=0; i<arraySize; i++) {
-                arr[i] = random.nextInt();
+            for (int j = 0; j < arraySize; j++) {
+                arr[j] = random.nextInt();
             }
 
-            // creates 2D array to store results from trials
-            long[][] resultTimes = new long[NUM_SORT_METHODS][NUM_TRIALS];
-
             // loops through trials
-            for (int trial=1; trial<=NUM_TRIALS; trial++) {
+            for (int trial = 1; trial <= NUM_TRIALS; trial++) {
                 System.out.println("--- Trial " + trial + " ---");
 
                 String[] results = new String[NUM_SORT_METHODS];
 
                 // loops through sort methods
-                for (int i = 1; i <= NUM_SORT_METHODS; i++) {
+                for (int j = 1; j <= NUM_SORT_METHODS; j++) {
 
                     // copies test array to be passed into sorter
                     int[] arrCopy = arr.clone();
@@ -55,22 +56,25 @@ public class SortTester {
                     // start timing sort
                     long startTime = System.nanoTime();
 
-                    integerSorter.sort(i);
+                    integerSorter.sort(j);
 
                     // stop timing sort
                     long endTime = System.nanoTime();
 
                     // calculate elapsed time and store result
                     long elapsedTime = endTime - startTime;
-                    resultTimes[i-1][trial-1] = elapsedTime;
-                    System.out.println("Method " + i + ": " + elapsedTime + " nano sec");
-                    results[i - 1] = integerSorter.toString();
+                    if (integerSorter.toString() == "null") {
+                        elapsedTime = -1;
+                    }
+                    resultTimes[j - 1][i][trial - 1] = elapsedTime;
+                    System.out.println("Method " + j + ": " + elapsedTime + " nano sec");
+                    results[j - 1] = integerSorter.toString();
                 }
 
                 // check if all sort methods output the same result
                 boolean allSame = true;
-                for (int i = 1; i < NUM_SORT_METHODS; i++) {
-                    if (!results[i - 1].equals(results[i])) {
+                for (int j = 1; j < NUM_SORT_METHODS; j++) {
+                    if (!results[j - 1].equals(results[j])) {
                         allSame = false;
                     }
                 }
@@ -84,16 +88,43 @@ public class SortTester {
 
             // calculates and outputs average of results
             System.out.println("--- Average ---");
-            for (int i=0; i<NUM_SORT_METHODS; i++) {
+            for (int j = 0; j < NUM_SORT_METHODS; j++) {
                 long sum = 0;
-                for (long time : resultTimes[i]) {
+                for (long time : resultTimes[j][i]) {
                     sum += time;
                 }
                 double avgNano = sum / (double) NUM_SORT_METHODS;
 
-                System.out.println("Method " + (i+1) + ": " + avgNano);
+                System.out.println("Method " + (j + 1) + ": " + avgNano);
             }
         }
+
+        System.out.println("===== COMMA SEPARATED VALUES =====");
+        String res = "";
+        res += ",";
+        for (int arraySize : ARRAY_SIZES) {
+            res += "," + arraySize;
+        }
+
+        res += "\n";
+        for (int i = 0; i < NUM_SORT_METHODS; i++) {
+            res += "Method " + (i + 1);
+            long total[] = new long[ARRAY_SIZES.length];
+            for (int j = 0; j < NUM_TRIALS; j++) {
+                res += ",Trial " + (j + 1);
+                for (int k = 0; k < ARRAY_SIZES.length; k++) {
+                    res += "," + resultTimes[i][k][j];
+                    total[k] += resultTimes[i][k][j];
+                }
+                res += "\n";
+            }
+            res += ",Average";
+            for (int k = 0; k < ARRAY_SIZES.length; k++) {
+                res += "," + total[k] / (double) NUM_TRIALS;
+            }
+            res += "\n";
+        }
+        System.out.println(res);
     }
 
 }

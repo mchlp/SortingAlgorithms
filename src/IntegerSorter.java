@@ -15,7 +15,8 @@ import java.util.Arrays;
 public class IntegerSorter implements Sorter {
 
     // Time in nanoseconds to be passed before a sort method is stopped.
-    public static final long KILL_TIME = 1_000_000_000L * 60L * 5L;
+    public static final long KILL_TIME = 1_000_000_000L * 60L * 10L;
+
 
     // Number of iterations that should be passed in the sorting method before the time elapsed is checked
     // (checking elapsed time every loop can take quite a bit of time, which may distort the results)
@@ -24,7 +25,7 @@ public class IntegerSorter implements Sorter {
     private int[] list;
 
     // Sort method 1
-    private int[] sort1() {
+    private void sort1() {
         long startTime = System.nanoTime();
         long itercount = 0;
         for (int end = list.length - 1; end > 0; end--) {
@@ -34,7 +35,8 @@ public class IntegerSorter implements Sorter {
                     itercount = 0;
                     if (System.nanoTime() - startTime > KILL_TIME) {
                         System.out.println("Killed.");
-                        return list;
+                        list = null;
+                        return;
                     }
                 }
                 if (list[i] > list[i + 1]) {
@@ -44,11 +46,10 @@ public class IntegerSorter implements Sorter {
                 }
             }
         }
-        return list;
     }
 
     // Sort method 2
-    private int[] sort2() {
+    private void sort2() {
         long startTime = System.nanoTime();
         long itercount = 0;
         for (int start = 0; start < list.length - 1; start++) {
@@ -59,7 +60,8 @@ public class IntegerSorter implements Sorter {
                     itercount = 0;
                     if (System.nanoTime() - startTime > KILL_TIME) {
                         System.out.println("Killed.");
-                        return list;
+                        list = null;
+                        return;
                     }
                 }
                 if (list[start] > list[i]) {
@@ -69,7 +71,6 @@ public class IntegerSorter implements Sorter {
                 }
             }
         }
-        return list;
     }
 
     // Combines two sorted arrays into one sorted array in place (for sort method 3)
