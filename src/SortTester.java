@@ -64,7 +64,6 @@ public class SortTester {
                     long elapsedTime = endTime - startTime;
                     resultTimes[i-1][trial-1] = elapsedTime;
                     System.out.println("Method " + i + ": " + elapsedTime + " nano sec");
-                    System.out.print(integerSorter);
                     results[i - 1] = integerSorter.toString();
                 }
 
