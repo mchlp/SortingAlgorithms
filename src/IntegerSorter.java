@@ -100,7 +100,7 @@ public class IntegerSorter implements Sorter {
         System.arraycopy(combinedArr, 0, list, arr1Start, arr2End - arr1Start);
     }
 
-    // Sort method 3
+    // Sort method 3 (in place)
     private void sort3(int[] bounds) {
         if (bounds[1] - bounds[0] > 1) {
             int[] arr1Bounds = {bounds[0], (bounds[1] + bounds[0]) / 2};

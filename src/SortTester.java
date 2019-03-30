@@ -47,6 +47,7 @@ public class SortTester {
 
                 // loops through sort methods
                 for (int i = 1; i <= NUM_SORT_METHODS; i++) {
+
                     // copies test array to be passed into sorter
                     int[] arrCopy = arr.clone();
                     integerSorter.setList(arrCopy);
