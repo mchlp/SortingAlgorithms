@@ -15,8 +15,7 @@ import java.util.Arrays;
 public class IntegerSorter implements Sorter {
 
     // Time in nanoseconds to be passed before a sort method is stopped.
-    public static final long KILL_TIME = 1_000_000_000L * 60L * 10L;
-
+    public static final long KILL_TIME = 1_000_000_000L * 60L * 5L;
 
     // Number of iterations that should be passed in the sorting method before the time elapsed is checked
     // (checking elapsed time every loop can take quite a bit of time, which may distort the results)

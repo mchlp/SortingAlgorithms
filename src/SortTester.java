@@ -14,7 +14,7 @@ import java.util.Random;
 public class SortTester {
 
     // Sizes of the arrays to run benchmark tests on
-    public static final int[] ARRAY_SIZES = {16, 128, 1024, 16384, 131072, 1048576, 16777216};
+    public static final int[] ARRAY_SIZES = {2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 65536, 98304, 131072, 163840, 196608, 229376, 262144};
 
     // Number of sorting methods
     public static final int NUM_SORT_METHODS = 3;
@@ -99,12 +99,15 @@ public class SortTester {
             }
         }
 
+        // output comma separated values of results to be imported into spreadsheet
         System.out.println("===== COMMA SEPARATED VALUES =====");
         String res = "";
         res += ",";
         for (int arraySize : ARRAY_SIZES) {
             res += "," + arraySize;
         }
+
+        double[][] averages = new double[ARRAY_SIZES.length][NUM_SORT_METHODS];
 
         res += "\n";
         for (int i = 0; i < NUM_SORT_METHODS; i++) {
@@ -121,9 +124,28 @@ public class SortTester {
             res += ",Average";
             for (int k = 0; k < ARRAY_SIZES.length; k++) {
                 res += "," + total[k] / (double) NUM_TRIALS;
+                averages[k][i] = total[k] / (double) NUM_TRIALS;
             }
             res += "\n";
         }
+
+        res += "\n";
+
+        for (int i = 0; i < NUM_SORT_METHODS; i++) {
+            res += ",Method " + (i + 1);
+        }
+
+        res += "\n";
+
+        for (int k = 0; k < ARRAY_SIZES.length; k++) {
+            res += ARRAY_SIZES[k];
+
+            for (int i = 0; i < NUM_SORT_METHODS; i++) {
+                res += "," + averages[k][i];
+            }
+            res += "\n";
+        }
+
         System.out.println(res);
     }
 
