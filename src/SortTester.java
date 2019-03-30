@@ -7,6 +7,10 @@
 
 import java.util.Random;
 
+/**
+ * SortTester class to run benchmark tests on IntegerSorter with different sized arrays and different sorting methods.
+ */
+
 public class SortTester {
 
     public static final int[] ARRAY_SIZES = {16, 128, 1024, 16384, 131072, 1048576, 16777216};

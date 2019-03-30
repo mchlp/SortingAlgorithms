@@ -5,6 +5,10 @@
  *  Course: ICS4U
  */
 
+/**
+ * IntegerSorter class with three different sorting methods.
+ */
+
 import java.util.Arrays;
 
 public class IntegerSorter implements Sorter {
